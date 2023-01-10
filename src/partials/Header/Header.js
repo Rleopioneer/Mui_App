@@ -5,9 +5,18 @@ import {
     Button,
     IconButton,
 } from '@material-ui/core'
+
+
 import  MenuIcon  from '@material-ui/icons/Menu';
+import useStyles from './Header.style'
+
+//JSS
+
 
 const Header = () => { 
+
+    const classes = useStyles()
+
     return (
         <AppBar position="static">
             <Toolbar>
@@ -19,8 +28,8 @@ const Header = () => {
                 >
                     <MenuIcon />
                 </IconButton>
-                <Typography variant="h6" component="div" >
-                    News
+                <Typography variant="h6" component="div" className={classes.title}>
+                    My_App
                 </Typography>
                 <Button color="inherit">Login</Button>
             </Toolbar>
