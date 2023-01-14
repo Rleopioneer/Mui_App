@@ -21,7 +21,7 @@ const Header = () => {
         <AppBar position="static">
             <Toolbar>
                 <IconButton
-                    size="large"
+                    size="small"
                     edge="start"
                     color="secondary"
                     aria-label="menu"
