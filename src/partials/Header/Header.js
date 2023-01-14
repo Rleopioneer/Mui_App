@@ -23,7 +23,7 @@ const Header = () => {
                 <IconButton
                     size="large"
                     edge="start"
-                    color="inherit"
+                    color="secondary"
                     aria-label="menu"
                 >
                     <MenuIcon />
@@ -31,7 +31,7 @@ const Header = () => {
                 <Typography variant="h6" component="div" className={classes.title}>
                     My_App
                 </Typography>
-                <Button color="inherit">Login</Button>
+                <Button color="secondary">Login</Button>
             </Toolbar>
       </AppBar>
     )
