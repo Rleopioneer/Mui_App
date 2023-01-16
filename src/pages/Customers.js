@@ -25,7 +25,7 @@ const Customers = () => {
    
 
     useEffect(()=> {
-        axios.get('http://reqres.in/api/users')
+        axios.get('https://reqres.in/api/users')
             .then((response) => {
                 const { data } = response.data 
             
@@ -33,17 +33,28 @@ const Customers = () => {
             })
     }, [])
 
+    const handleRemoveCustomer = id  => {
+        axios.delete(`https://reqres.in/api/users/${id}`)
+            .then(() => {
+                const newCustomersState = customers.filter(customers => customers.id !== id)
+
+                setCustomers(newCustomersState)
+            })
+    }
+
     return (
             <Grid container>
                 {
                     customers.map(item =>(
                         <Grid item xs={12} md={4}>
                             <CustomersCard
+                                id={item.id}
                                 name={item.first_name}
                                 lastName={item.last_name}
                                 email={item.email}
                                 avatar={item.avatar}
                                 className={classes.card}
+                                onRemoveCustomer={handleRemoveCustomer}
                             />
                         </Grid>
                     ) )

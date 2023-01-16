@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import classNames from 'classnames'
 
@@ -11,10 +11,10 @@ import {
 } from '@material-ui/core'
 
 
-import FavoriteIcon from '@material-ui/icons/Favorite'
-import ShareIcon from '@material-ui/icons/Share'
+import EditIcon from '@material-ui/icons/Edit'
+import DeleteIcon from '@material-ui/icons/Delete'
 
-
+import ModalConfirm from './ModalConfirm'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,37 +24,59 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const CustomersCard = ({
+  id,
   name,
   lastName,
   email,
   avatar,
-  className
+  className,
+  onRemoveCustomer,
 }) => {
   const classes = useStyles()
+
+  const [openModal, setOpenModal] = useState(false)  
+
+  const handleToggleOpenModal = () => setOpenModal(!openModal)
+
+  const handleRemoveCustomer = () => handleToggleOpenModal()
+  
+  const handleConfirmModal = id => {
+    onRemoveCustomer(id)
+    handleToggleOpenModal()
+  }
   
   return (
-    <Card className={classNames(className, classes.root)}>
-      <CardHeader
-        avatar={
-          <Avatar aria-label="Customer's Photo" src={avatar}>
-            R
-          </Avatar>
-        }
+    
+    <>
+      <Card className={classNames(className, classes.root)}>
+        <CardHeader
+          avatar={
+            <Avatar aria-label="Customer's Photo" src={avatar}>
+              R
+            </Avatar>
+          }
+          title={`${name} ${lastName}`}
+          subheader={email}
+        />
         
-        title={`${name} ${lastName}`}
-        subheader={email}
-      />
-      
-      <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
-      </CardActions>
+        <CardActions disableSpacing>
+          <IconButton aria-label="Editar Cadastro">
+            <EditIcon />
+          </IconButton>
+          <IconButton aria-label="Remover Cadastro" onClick={() => handleRemoveCustomer()}>
+            <DeleteIcon />
+          </IconButton>
+        </CardActions>
 
-    </Card>
+      </Card>
+      <ModalConfirm 
+        open={openModal}
+        onClose={handleToggleOpenModal}
+        onConfirm={() => handleConfirmModal(id)}
+        title="Deseja excluir?"
+        message="Ao confirmar, não será possivel reverter esta operação"
+      />
+    </>
   )
 }
 
