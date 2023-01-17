@@ -18,6 +18,7 @@ import { useHistory } from 'react-router-dom'
 import  MenuIcon  from '@material-ui/icons/Menu'
 import HomeIcon from '@material-ui/icons/Home'
 import GroupIcon from '@material-ui/icons/Group'
+import GroupAddIcon from '@material-ui/icons/GroupAdd'
 
 import useStyles from './Header.style'
 
@@ -70,6 +71,13 @@ const Header = () => {
                             <GroupIcon />
                         </ListItemIcon>
                         <ListItemText>Clientes</ListItemText>
+                    </ListItem>
+
+                    <ListItem button onClick={()=>handleMenuClick('/customers/add')}>
+                        <ListItemIcon>
+                            <GroupAddIcon />
+                        </ListItemIcon>
+                        <ListItemText>Cadastro de Clientes</ListItemText>
                     </ListItem>
                 </List>
             </Drawer>
