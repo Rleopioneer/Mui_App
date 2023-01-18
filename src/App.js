@@ -7,6 +7,7 @@ import {
 import TemplateDefault from './templates/Default'
 import TemplatePage from './templates/Page'
 
+import CustomersEdit from './pages/customers/Edit'
 import CustomersList from './pages/customers/List'
 import CustomersRegister from './pages/customers/Register'
 
@@ -18,6 +19,9 @@ const App = () => {
     <Router>
       <TemplateDefault>
         <Switch>
+        <Route path="/customers/edit/:id">
+            <TemplatePage title="Editar Clientes" Component={CustomersEdit} />
+          </Route>
           <Route path="/customers/add">
             <TemplatePage title="Cadastro de Clientes" Component={CustomersRegister} />
           </Route>

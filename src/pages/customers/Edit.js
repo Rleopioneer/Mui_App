@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import axios from 'axios'
+import { useParams } from 'react-router-dom'
 
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -20,9 +21,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const Register = () => {
+const Edit = () => {
 
     const classes = useStyles()
+    const { id } = useParams()
+
+    const [openToasty, setOpenToasty] = useState({
+        open: false,
+        text: 'Edição realizada com Sucesso!!'
+    })
+
+    const [isLoading, setIsLoading] = useState(false)
 
     const [form, setForm] = useState({
         name: {
@@ -36,12 +45,25 @@ const Register = () => {
         },
     })
 
-    const [openToasty, setOpenToasty] = useState({
-        open: false,
-        text: 'Cadastro Realizado com Sucesso!!'
-    })
+    useEffect(() => {
+        axios.get(`https://reqres.in/api/users/${id}`)
+            .then(response => {
+                const { data } = response.data
 
-    const [isLoading, setIsLoading] = useState(false)
+                setForm({
+                    name: {
+                        value: data.first_name,
+                        error: false
+                    },
+            
+                    job:{
+                        value: data.job,
+                        error: false
+                    },
+                })
+    
+            })
+    }, [])
 
     const handleInputChange = (e) => {
         const { name, value } = e.target
@@ -53,7 +75,7 @@ const Register = () => {
         })
     }
 
-    const handleRegisterButton = () => {
+    const handleEditButton = () => {
         setIsLoading(true)
 
         let hasError = false
@@ -85,7 +107,7 @@ const Register = () => {
             return setForm(newFormState)
         }
 
-        axios.post('https://reqres.in/api/users', {
+        axios.put(`https://reqres.in/api/users/${id}`, {
             name: form.name.value,
             job: form.job.value,
         }).then((response) => {
@@ -129,9 +151,9 @@ const Register = () => {
                     variant="contained" 
                     color="primary"
                     disabled={isLoading}
-                    onClick = {() => handleRegisterButton()}
+                    onClick = {() => handleEditButton()}
                 > 
-                    { isLoading ? 'Aguarde...' : 'Cadastrar '}
+                    { isLoading ? 'Aguarde...' : 'Salvar '}
                 
                 </Button>
             </div>
@@ -146,4 +168,4 @@ const Register = () => {
     )
     
 }
-export default Register
+export default Edit
