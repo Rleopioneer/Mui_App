@@ -22,7 +22,7 @@ import GroupAddIcon from '@material-ui/icons/GroupAdd'
 
 import useStyles from './Header.style'
 
-const Header = () => { 
+const Header = ({ user }) => { 
 
     const classes = useStyles()
     const history = useHistory()
@@ -54,7 +54,13 @@ const Header = () => {
                     <Typography variant="h6" component="div" className={classes.title}>
                         My_App
                     </Typography>
-                    <Button color="secondary">Login</Button>
+                    {
+                        user.logged 
+                            ? <Typography variant='h6'>{user.email}</Typography>
+                            : <Button color="secondary">Login</Button>
+
+                    }
+                    
                 </Toolbar>
             </AppBar>
             <Drawer open={menuOpen} onClose={() => handleToggleMenu()}>

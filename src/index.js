@@ -4,6 +4,8 @@ import ReactDOM from 'react-dom/client'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 import {pink, deepPurple } from '@material-ui/core/colors'
 
+import { AuthProvider } from './state/auth'
+
 import App from './App'
 import './index.css'
 
@@ -23,7 +25,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   
     <ThemeProvider theme={theme}>
-      <App />
+      <AuthProvider>
+        <App />
+      </AuthProvider>
     </ThemeProvider>
   
 )

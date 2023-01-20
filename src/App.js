@@ -6,34 +6,46 @@ import {
 
 import TemplateDefault from './templates/Default'
 import TemplatePage from './templates/Page'
+import TemplateClean from './templates/Clean'
 
 import CustomersEdit from './pages/customers/Edit'
 import CustomersList from './pages/customers/List'
 import CustomersRegister from './pages/customers/Register'
 
 import Home from './pages/Home'
+import Login from './pages/Login'
 
 //Definição de Rotas
 const App = () => {
+  
   return (
+
     <Router>
-      <TemplateDefault>
-        <Switch>
-        <Route path="/customers/edit/:id">
+      <Switch>
+        <Route path="/login">
+          <TemplateClean title="Acesso Restrito" Component={Login} />
+        </Route>
+
+        <TemplateDefault>
+          <Route path="/customers/edit/:id">
             <TemplatePage title="Editar Clientes" Component={CustomersEdit} />
           </Route>
+
           <Route path="/customers/add">
             <TemplatePage title="Cadastro de Clientes" Component={CustomersRegister} />
           </Route>
+
           <Route path="/customers">
             <TemplatePage title="Clientes" Component={CustomersList} />
           </Route>
+          
           <Route path="/">
           <TemplatePage title="Página Inicial" Component={Home} />
           </Route>
-        </Switch>
-      </TemplateDefault>
+        </TemplateDefault>
+      </Switch>
     </Router>
+
   )
 }
 
